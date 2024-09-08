@@ -1,5 +1,6 @@
 package com.example.myapplication9
 
+import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -22,19 +23,24 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun mediaPlayerPlay(){
-        if(mediaPlayer == null) {
-            mediaPlayer = MediaPlayer.create(this, R.raw.cheer).apply{
-                isLooping = true
-            }
-        }
-        mediaPlayer?.start()
+        val intent = Intent(this, MediaPlayerService::class.java)
+            .apply {
+                action = MEDIA_PLAYER_PLAY
     }
+        startService(intent)}
     private fun mediaPlayerPause(){
-        mediaPlayer?.pause()
-    }
+        val intent = Intent(this, MediaPlayerService::class.java)
+            .apply {
+                action = MEDIA_PLAYER_PAUSE
+            }
+        startService(intent)}
+
     private fun mediaPlayerStop(){
-        mediaPlayer?.stop()
-        mediaPlayer?.release()
-        mediaPlayer = null
+        val intent = Intent(this, MediaPlayerService::class.java)
+            .apply {
+                action = MEDIA_PLAYER_STOP
+            }
+        startService(intent)
     }
+
 }
